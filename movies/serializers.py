@@ -78,7 +78,7 @@ class CreateRatingSerializer(serializers.ModelSerializer):
         fields = ('star', 'movie')
 
     def create(self, validated_data):
-        rating = Rating.objects.update_or_create(
+        rating, _ = Rating.objects.update_or_create(
             ip=validated_data.get('ip', None),
             movie=validated_data.get('movie', None),
             defaults={'star': validated_data.get('star')}
@@ -86,16 +86,3 @@ class CreateRatingSerializer(serializers.ModelSerializer):
         return rating
 
 
-class CreateRatingSerializer(serializers.ModelSerializer):
-    """Добавление рейтинга"""
-    class Meta:
-        model = Rating
-        fields = ('star', 'movie')
-
-    def create(self, validated_data):
-        rating = Rating.objects.update_or_create(
-            ip=validated_data.get('ip', None),
-            movie=validated_data.get('movie', None),
-            defaults={'star': validated_data.get('star')}
-        )
-        return rating
